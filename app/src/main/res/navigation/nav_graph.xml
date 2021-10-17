@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ordinary_drinks_fragment">
+
+    <fragment
+        android:id="@+id/ordinary_drinks_fragment"
+        android:name="com.appsflow.drinksapp.view.OrdinaryDrinkFragment"
+        android:label="fragment_ordinary_drink"
+        tools:layout="@layout/fragment_ordinary_drink" >
+
+        <action
+            android:id="@+id/action_ordinary_drinks_fragment_to_cocktails_fragment"
+            app:destination="@id/cocktails_fragment" />
+        <action
+            android:id="@+id/action_ordinary_drinks_fragment_to_details_fragment"
+            app:destination="@id/details_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cocktails_fragment"
+        android:name="com.appsflow.drinksapp.view.CocktailFragment"
+        android:label="fragment_cocktail"
+        tools:layout="@layout/fragment_cocktail" >
+        <action
+            android:id="@+id/action_cocktails_fragment_to_details_fragment"
+            app:destination="@id/details_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/details_fragment"
+        android:name="com.appsflow.drinksapp.view.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+</navigation>
