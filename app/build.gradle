@@ -39,6 +39,7 @@ ext {
     nav_version = "2.3.5"
     coroutines_vers = "1.5.0"
     retrofit_vers = "2.9.0"
+    picasso_vers = "2.71828"
 }
 
 dependencies {
@@ -49,8 +50,12 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_vers")
 
-    //Retrofit
+    // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_vers"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_vers"
+
+    // Picasso
+    implementation "com.squareup.picasso:picasso:$picasso_vers"
 
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
