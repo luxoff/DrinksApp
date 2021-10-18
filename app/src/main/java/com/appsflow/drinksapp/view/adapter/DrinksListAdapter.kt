@@ -1,10 +1,9 @@
 package com.appsflow.drinksapp.view.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.appsflow.drinksapp.R
 import com.appsflow.drinksapp.databinding.DrinkListItemBinding
 import com.appsflow.drinksapp.model.Drink
 import com.squareup.picasso.Picasso
@@ -30,6 +29,8 @@ class DrinksListAdapter(dataSet: List<Drink>) :
         holder.binding.tvTitle.text = drink.strDrink
         Picasso.get()
             .load(drink.strDrinkThumb)
+            .placeholder(R.drawable.ic_drink_placeholder)
+            .error(R.drawable.ic_error_placeholder)
             .resize(86, 86)
             .centerCrop()
             .into(holder.binding.ivImage)
