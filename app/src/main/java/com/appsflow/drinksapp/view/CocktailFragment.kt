@@ -34,51 +34,68 @@ class CocktailFragment : Fragment(R.layout.fragment_cocktail),
         binding = FragmentCocktailBinding.bind(view)
 
         binding.apply {
-            GlobalScope.launch(Dispatchers.IO) {
-                fetchCocktails(binding)
-            }
-
-            swipeRefreshLayoutCocktail.setOnRefreshListener {
-                swipeRefreshLayoutCocktail.isRefreshing = true
-
+            try {
                 GlobalScope.launch(Dispatchers.IO) {
                     fetchCocktails(binding)
-                    swipeRefreshLayoutCocktail.isRefreshing = false
                 }
+
+
+                swipeRefreshLayoutCocktail.setOnRefreshListener {
+                    swipeRefreshLayoutCocktail.isRefreshing = true
+
+                    GlobalScope.launch(Dispatchers.IO) {
+                        fetchCocktails(binding)
+                        swipeRefreshLayoutCocktail.isRefreshing = false
+                    }
+                }
+            } catch (ex: Exception) {
+                Toast.makeText(
+                    requireContext(),
+                    "Something went wrong. Check network connection!", Toast.LENGTH_LONG
+                ).show()
             }
         }
 
     }
 
     suspend fun fetchCocktails(binding: FragmentCocktailBinding) {
-        binding.apply {
-            val response = drinkService.getCocktails(API_KEY)
-            if (response.isSuccessful) {
-                val drinks = response.body()?.drinkList
-                drinksList = response.body()?.drinkList
-                withContext(Dispatchers.Main) {
-                    try {
-                        rvCocktails.adapter =
-                            drinks?.let {
-                                DrinksListAdapter(
-                                    it,
-                                    this@CocktailFragment
-                                )
-                            }
-                    } catch (e: Exception) {
+        try {
+            binding.apply {
+                val response = drinkService.getCocktails(API_KEY)
+                if (response.isSuccessful) {
+                    val drinks = response.body()?.drinkList
+                    drinksList = response.body()?.drinkList
+                    withContext(Dispatchers.Main) {
+                        try {
+                            rvCocktails.adapter =
+                                drinks?.let {
+                                    DrinksListAdapter(
+                                        it,
+                                        this@CocktailFragment
+                                    )
+                                }
+                        } catch (e: Exception) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Something went wrong!", Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
                         Toast.makeText(
                             requireContext(),
-                            "Something went wrong!", Toast.LENGTH_SHORT
+                            "Retrofit response failed", Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
-            } else {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Retrofit response failed", Toast.LENGTH_SHORT
-                    ).show()
-                }
+            }
+        } catch (ex: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                    requireContext(),
+                    "Something went wrong. Check network connection!", Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
