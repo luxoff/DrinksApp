@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/ordinary_drinks_fragment"
         android:name="com.appsflow.drinksapp.view.OrdinaryDrinkFragment"
-        android:label="fragment_ordinary_drink"
+        android:label="Drink App"
         tools:layout="@layout/fragment_ordinary_drink">
 
         <action
@@ -18,12 +18,12 @@
     <fragment
         android:id="@+id/cocktails_fragment"
         android:name="com.appsflow.drinksapp.view.CocktailFragment"
-        android:label="fragment_cocktail"
+        android:label="Drink App"
         tools:layout="@layout/fragment_cocktail" />
     <fragment
         android:id="@+id/details_fragment"
         android:name="com.appsflow.drinksapp.view.DetailsFragment"
-        android:label="fragment_details"
+        android:label="Details"
         tools:layout="@layout/fragment_details">
         <argument
             android:name="idDrink"

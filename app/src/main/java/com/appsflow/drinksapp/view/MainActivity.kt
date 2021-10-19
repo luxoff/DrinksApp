@@ -3,9 +3,13 @@ package com.appsflow.drinksapp.view
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.appsflow.drinksapp.R
 import com.appsflow.drinksapp.databinding.ActivityMainBinding
 import com.appsflow.drinksapp.model.retrofit.ApiInterface
@@ -17,6 +21,7 @@ import java.lang.Exception
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var drinkService: ApiInterface
+    private lateinit var navController: NavController
 
     @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +33,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         setUpNavigation()
 
+        val appBarConfiguration = AppBarConfiguration
+            .Builder(
+                R.id.ordinary_drinks_fragment,
+                R.id.cocktails_fragment
+            )
+            .build()
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.findNavController()
+
+        setupActionBarWithNavController(this, navController, appBarConfiguration)
+
         binding.apply {
             fabRandomDrink.setOnClickListener {
                 GlobalScope.launch {
@@ -35,6 +53,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+
     }
 
     private suspend fun randomDrink(binding: ActivityMainBinding) {
