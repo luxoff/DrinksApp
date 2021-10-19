@@ -21,6 +21,11 @@ interface ApiInterface {
         @Query("i") idDrink: String
     ): Response<DetailedDrinkList>
 
+    // Additional feature: random drink
+    @GET("api/json/v1/{API_KEY}/random.php")
+    suspend fun getRandomDrink(@Path("API_KEY") apiKey: Int): Response<DetailedDrinkList>
+
+    //Future feature: make order
     @POST("api/json/v1/{API_KEY}/order")
     suspend fun postOrderRequest(@Path("API_KEY") apiKey: Int,
                                  @Body order: Order): Response<Order>
