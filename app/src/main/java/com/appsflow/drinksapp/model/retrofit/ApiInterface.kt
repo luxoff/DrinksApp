@@ -2,11 +2,10 @@ package com.appsflow.drinksapp.model.retrofit
 
 import com.appsflow.drinksapp.model.DetailedDrinkList
 import com.appsflow.drinksapp.model.Drink
+import com.appsflow.drinksapp.model.Order
 import com.appsflow.drinksapp.model.ResultList
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiInterface {
 
@@ -21,4 +20,8 @@ interface ApiInterface {
         @Path("API_KEY") apiKey: Int,
         @Query("i") idDrink: String
     ): Response<DetailedDrinkList>
+
+    @POST("api/json/v1/{API_KEY}/order")
+    suspend fun postOrderRequest(@Path("API_KEY") apiKey: Int,
+                                 @Body order: Order): Response<Order>
 }
