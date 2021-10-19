@@ -1,5 +1,6 @@
 package com.appsflow.drinksapp.view
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -53,7 +54,7 @@ class OrdinaryDrinkFragment : Fragment(R.layout.fragment_ordinary_drink),
         }
     }
 
-    suspend fun fetchOrdinaryDrinks(binding: FragmentOrdinaryDrinkBinding) {
+    private suspend fun fetchOrdinaryDrinks(binding: FragmentOrdinaryDrinkBinding) {
         binding.apply {
             try {
                 val response = drinkService.getOrdinaryDrinks(API_KEY)
@@ -83,7 +84,7 @@ class OrdinaryDrinkFragment : Fragment(R.layout.fragment_ordinary_drink),
                         ).show()
                     }
                 }
-            } catch (ex: Exception){
+            } catch (ex: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
                         requireContext(),

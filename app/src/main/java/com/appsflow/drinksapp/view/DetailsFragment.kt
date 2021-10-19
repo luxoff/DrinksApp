@@ -1,23 +1,17 @@
 package com.appsflow.drinksapp.view
 
+import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.appsflow.drinksapp.R
 import com.appsflow.drinksapp.databinding.FragmentDetailsBinding
 import com.appsflow.drinksapp.model.retrofit.ApiInterface
 import com.appsflow.drinksapp.model.retrofit.DrinkService
-import com.appsflow.drinksapp.view.adapter.DrinksListAdapter
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.lang.Exception
+import kotlinx.coroutines.*
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
     private lateinit var binding: FragmentDetailsBinding
@@ -29,6 +23,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         drinkService = DrinkService().getDrinkService()
     }
 
+    @DelicateCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -54,7 +49,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
     }
 
-    suspend fun fetchDrinkDetails(idDrink: String, binding: FragmentDetailsBinding) {
+    private suspend fun fetchDrinkDetails(idDrink: String, binding: FragmentDetailsBinding) {
         try {
             binding.apply {
                 withContext(Dispatchers.IO) {

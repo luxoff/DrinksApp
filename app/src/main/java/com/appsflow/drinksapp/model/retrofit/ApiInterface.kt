@@ -27,6 +27,8 @@ interface ApiInterface {
 
     //Future feature: make order
     @POST("api/json/v1/{API_KEY}/order")
-    suspend fun postOrderRequest(@Path("API_KEY") apiKey: Int,
-                                 @Body order: Order): Response<Order>
+    suspend fun postOrderRequest(
+        @Path("API_KEY") apiKey: Int,
+        @Body order: Order
+    ): Response<Order>
 }

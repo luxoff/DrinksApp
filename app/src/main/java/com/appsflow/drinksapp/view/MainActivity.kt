@@ -10,10 +10,7 @@ import com.appsflow.drinksapp.R
 import com.appsflow.drinksapp.databinding.ActivityMainBinding
 import com.appsflow.drinksapp.model.retrofit.ApiInterface
 import com.appsflow.drinksapp.model.retrofit.DrinkService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.lang.Exception
 
 
@@ -21,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var drinkService: ApiInterface
 
+    @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_DrinksApp)
         super.onCreate(savedInstanceState)

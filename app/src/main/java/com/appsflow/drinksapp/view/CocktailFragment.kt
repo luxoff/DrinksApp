@@ -1,11 +1,10 @@
 package com.appsflow.drinksapp.view
 
+import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.appsflow.drinksapp.R
 import com.appsflow.drinksapp.databinding.FragmentCocktailBinding
@@ -14,7 +13,6 @@ import com.appsflow.drinksapp.model.retrofit.ApiInterface
 import com.appsflow.drinksapp.model.retrofit.DrinkService
 import com.appsflow.drinksapp.view.adapter.DrinksListAdapter
 import kotlinx.coroutines.*
-import java.lang.Exception
 
 class CocktailFragment : Fragment(R.layout.fragment_cocktail),
     DrinksListAdapter.OnItemClickListener {
@@ -39,7 +37,6 @@ class CocktailFragment : Fragment(R.layout.fragment_cocktail),
                     fetchCocktails(binding)
                 }
 
-
                 swipeRefreshLayoutCocktail.setOnRefreshListener {
                     swipeRefreshLayoutCocktail.isRefreshing = true
 
@@ -58,7 +55,7 @@ class CocktailFragment : Fragment(R.layout.fragment_cocktail),
 
     }
 
-    suspend fun fetchCocktails(binding: FragmentCocktailBinding) {
+    private suspend fun fetchCocktails(binding: FragmentCocktailBinding) {
         try {
             binding.apply {
                 val response = drinkService.getCocktails(API_KEY)
